@@ -18,8 +18,6 @@ local tonumber = tonumber
 local debug = debug
 local pairs = pairs
 
-module("alttab")
-
 local surface = cairo.ImageSurface(cairo.Format.RGB24,20,20)
 local cr = cairo.Context(surface)
 
@@ -383,7 +381,7 @@ local function switch(dir, alt, tab, shift_tab)
        keygrabber.run(
           function (mod, key, event)  
          -- Stop alt-tabbing when the alt-key is released
-         if key == alt or key == "Escape" and event == "release" then
+         if event == "release" and key ~= tab then
             preview_wbox.visible = false
             applyOpacity = false
             preview_live_timer:stop()
